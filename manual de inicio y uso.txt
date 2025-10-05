@@ -1,0 +1,56 @@
+﻿Asistente-Personal-Inteligente.1.4 (Suriel)
+¡Bienvenido/a al Asistente Personal Inteligente Suriel!
+Este proyecto es un Chatbot de Generación Aumentada por Recuperación (RAG) que utiliza tus documentos PDF como base de conocimiento. Suriel responderá a tus preguntas solamente con la información que encuentre en los archivos que subas.
+⚙️ Requisitos Previos
+Para ejecutar este proyecto, necesitás tener instalado lo siguiente:
+1. Python (Versión 3.9 o superior).
+2. Pip (el gestor de paquetes de Python, que generalmente viene incluido con Python).
+3. Una API Key de Groq. Podés conseguir una gratis en la página de Groq. Esta clave es necesaria para usar el modelo de lenguaje llama-3.1-8b-instant.
+📦 Instalación y Configuración
+Seguí estos pasos para dejar el proyecto funcionando en tu máquina.
+Paso 1: Configurar la API Key de Groq
+1. Entrá a la carpeta backend/.
+2. Creá un archivo nuevo llamado .env (asegurate de que empiece con un punto).
+3. Copiá el contenido del archivo backend/.env.ejemplo dentro de este nuevo archivo .env y reemplazá el texto placeholder con tu clave de API:
+GROQ_API_KEY="TU_CLAVE_API_DE_GROQ"
+
+Paso 2: Instalar Dependencias del Backend
+   1. Abrí tu terminal o consola de comandos.
+   2. Navegá hasta la carpeta backend/:
+cd Asistente-Personal-Inteligente.1.4/backend
+
+   3. Instalá todas las librerías de Python necesarias usando el archivo requirements.txt:
+pip install -r requirements.txt
+
+Paso 3: Iniciar el Servidor Backend
+Una vez instaladas las dependencias, podés iniciar el servidor con Uvicorn:
+uvicorn main:app --reload
+
+Nota: Dejá esta terminal abierta. Verás mensajes de "Application startup complete". El servidor se ejecutará en la dirección http://127.0.0.1:8000.
+Paso 4: Abrir el Frontend (Interfaz)
+      1. Abrí una ventana del explorador de archivos y andá a la carpeta frontend/.
+      2. Hacé doble clic en el archivo index.html.
+Esto abrirá la interfaz de chat en tu navegador (la URL será algo como file:///.../index.html).
+🚀 Uso del Asistente
+El flujo de uso es simple:
+      1. Cargar Documentos:
+      * Hacé clic en "Seleccionar archivo" y elegí uno o más archivos PDF (como los cursos que ya tenés).
+      * Hacé clic en el botón "Subir PDF".
+      * Esperá el mensaje de confirmación debajo del botón (ej: "PDF 'curso.pdf' cargado y agregado al índice.").
+      * Importante: El servidor procesa, divide y guarda el contenido en la carpeta vector_db/. Este proceso puede tardar unos segundos dependiendo del tamaño del PDF.
+      2. Interactuar con Suriel:
+      * Escribí tu pregunta en el campo de texto (ej: "¿Cuáles son los tipos de datos en Python?").
+      * Hacé clic en "Enviar".
+      * Suriel te responderá usando solamente la información que cargaste en los PDFs. Si la información no está, dirá: "No tengo esa información".
+📚 Estructura de Carpetas
+Archivo/Carpeta
+	backend/				Contiene el servidor (API) y la lógica de inteligencia artificial.
+		main.py				El archivo principal con FastAPI, la lógica RAG, y las rutas /upload y /chat.
+		.env				Almacena la clave secreta de Groq.
+		requirements.txt	Lista de librerías de Python.
+	frontend/			Contiene la interfaz de usuario.
+		index.html			Estructura principal y estilos visuales del chat.
+		script.js			Lógica de las llamadas al backend y manejo del chat.
+	vector_db/			Base de Datos de Vectores. Aquí ChromaDB guarda el contenido indexado de tus PDFs. Es persistente.
+	uploads/			Carpeta temporal donde se guardan los PDFs antes de ser procesados.
+	
